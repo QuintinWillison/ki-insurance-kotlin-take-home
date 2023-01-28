@@ -16,13 +16,17 @@ class PaymentProcessor {
      * Read payment records from the supplied CSV file.
      *
      * @param csvPath Path to the payments CSV file.
-     * @param source The source of the payments, currently ignored.
+     * @param source The source of the payments, currently only `'card'` is supported.
      * @return Payment records, in the order read from the file.
      */
     fun getPayments(
         csvPath: String,
-        @Suppress("UNUSED_PARAMETER") source: String,
+        source: String,
     ): Array<Payment> {
+        if (source != "card") {
+            throw IllegalArgumentException("Only card payments are supported. You supplied \"${source}\".")
+        }
+
         val payments = ArrayList<Payment>()
         try {
             val file = FileReader(csvPath)

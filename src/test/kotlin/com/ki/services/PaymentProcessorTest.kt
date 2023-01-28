@@ -18,6 +18,13 @@ class PaymentProcessorTest {
         Assert.assertEquals(10, payments[2].card!!.cardId)
     }
 
+    @Test(expected = IllegalArgumentException::class)
+    fun testGetPaymentsBank() {
+        val fixturePath = Fixture.getPath("bank_payments_mixed.csv")
+        val processor = PaymentProcessor()
+        processor.getPayments(fixturePath, "bank")
+    }
+
     @Test
     fun testGetPaymentsEmpty() {
         val fixturePath = Fixture.getPath("card_payments_empty.csv")
