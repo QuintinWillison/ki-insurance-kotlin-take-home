@@ -59,7 +59,7 @@ class CSVFileReaderTest {
     }
 
     private fun createAndExerciseReader(csvFileName: String): AccumulatingCSVFileReader {
-        val reader = AccumulatingCSVFileReader(FileReader(Fixture.getPath("$csvFileName.csv")))
+        val reader = AccumulatingCSVFileReader(Fixture.createCSVFileReader(csvFileName))
         reader.readAll()
         return reader
     }

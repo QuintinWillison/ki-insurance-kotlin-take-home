@@ -1,6 +1,7 @@
 package com.ki
 
 import java.io.File
+import java.io.FileReader
 import java.io.IOException
 
 object Fixture {
@@ -12,5 +13,9 @@ object Fixture {
             e.printStackTrace()
         }
         return "$selfPath/src/test/fixtures/$filename"
+    }
+
+    fun createCSVFileReader(filename: String): FileReader {
+        return FileReader(getPath("$filename.csv"))
     }
 }
