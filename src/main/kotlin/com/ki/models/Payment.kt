@@ -4,6 +4,12 @@ import com.ki.Config
 import java.math.BigDecimal
 import java.time.LocalDate
 
+/**
+ * Data class defining the record structure for a customer payment.
+ *
+ * **IMPORTANT**: The API offered by this class is relied upon by other services.
+ * The module it's included in is installed on the platform as a dependency for those other services.
+ */
 class Payment {
     var customerId = 0
     var date: LocalDate? = null
