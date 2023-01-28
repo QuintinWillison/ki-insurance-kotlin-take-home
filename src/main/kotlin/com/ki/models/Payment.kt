@@ -1,6 +1,7 @@
 package com.ki.models
 
 import com.ki.Config
+import com.ki.io.InvalidDataException
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -20,26 +21,19 @@ class Payment {
 
     private val ignoreCard: Boolean
 
+    /**
+     * Construct a new Card [Payment].
+     */
     constructor() {
         ignoreCard = false
     }
 
+    /**
+     * Construct a new Card [Payment].
+     */
     constructor(data: Array<String>) {
-        customerId = data[0].toInt()
-        val paymentFeeRate = Config.paymentFeeRate
-        val totalAmount = data[2].toInt()
-        fee = paymentFeeRate.multiply(BigDecimal(totalAmount)).toInt()
-        amount = totalAmount - fee
-        date = LocalDate.parse(data[1])
-
-        // Card records have five fields.
-        // Bank records have four fields.
-        // TODO Solve this in a less brittle way.
-        val ignoreCard = (data.size < 5)
-        this.ignoreCard = ignoreCard
-        if (ignoreCard) {
-            return
-        }
+        parseToCommonFields(data, 5)
+        ignoreCard = false
 
         val card = Card()
         card.cardId = data[3].toInt()
@@ -47,6 +41,38 @@ class Payment {
         this.card = card
     }
 
+    /**
+     * Construct a new Card or Bank [Payment].
+     */
+    private constructor(ignoreCard: Boolean) {
+        this.ignoreCard = ignoreCard
+    }
+
     val isSuccessful: Boolean
         get() = ignoreCard || (card?.status == "processed")
+
+    internal companion object {
+        /**
+         * Create a new Bank [Payment].
+         */
+        fun bank(data: Array<String>): Payment {
+            val payment = Payment(true)
+            payment.parseToCommonFields(data)
+            return payment
+        }
+    }
+
+    private fun parseToCommonFields(data: Array<String>, minimumFieldCount: Int = 3) {
+        val fieldCount = data.size
+        if (fieldCount < minimumFieldCount) {
+            throw InvalidDataException("Expected at least $minimumFieldCount fields, but found $fieldCount.")
+        }
+
+        customerId = data[0].toInt()
+        val paymentFeeRate = Config.paymentFeeRate
+        val totalAmount = data[2].toInt()
+        fee = paymentFeeRate.multiply(BigDecimal(totalAmount)).toInt()
+        amount = totalAmount - fee
+        date = LocalDate.parse(data[1])
+    }
 }

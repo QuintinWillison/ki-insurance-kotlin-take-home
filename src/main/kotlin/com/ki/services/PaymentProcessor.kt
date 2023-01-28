@@ -1,9 +1,10 @@
 package com.ki.services
 
+import com.ki.io.BankPaymentsCSVFileReader
+import com.ki.io.CardPaymentsCSVFileReader
+import com.ki.io.PaymentsCSVFileReader
 import com.ki.models.Payment
-import com.opencsv.CSVReaderBuilder
 import java.io.FileReader
-import java.io.IOException
 
 /**
  * Service class offering methods for loading and processing payment records.
@@ -23,23 +24,23 @@ class PaymentProcessor {
         csvPath: String,
         source: String,
     ): Array<Payment> {
-        if (source != "card" && source != "bank") {
-            throw IllegalArgumentException("Only card or bank payments are supported. You supplied \"${source}\".")
+        val reader = createReader(csvPath, source)
+        reader.readAll()
+        return reader.payments.toTypedArray()
+    }
+
+    private fun createReader(
+        csvPath: String,
+        source: String,
+    ): PaymentsCSVFileReader {
+        val fileReader = FileReader(csvPath)
+
+        when (source) {
+            "card" -> return CardPaymentsCSVFileReader(fileReader)
+            "bank" -> return BankPaymentsCSVFileReader(fileReader)
         }
 
-        val payments = ArrayList<Payment>()
-        try {
-            val file = FileReader(csvPath)
-            val reader = CSVReaderBuilder(file).withSkipLines(1).build()
-            while (true) {
-                val line = reader.readNext() ?: break
-                val payment = Payment(line)
-                payments.add(payment)
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return payments.toArray(arrayOf())
+        throw IllegalArgumentException("Only card or bank payments are supported. You supplied \"${source}\".")
     }
 
     /**
