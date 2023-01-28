@@ -14,7 +14,7 @@ class IntegrationTest {
             "123","735"
             "456","3430"
             
-            """.trimIndent()
+        """.trimIndent()
         val result = simulatePlatform(fixturePath, "card", BigDecimal("1.2"))
         Assert.assertEquals(expected, result)
     }
