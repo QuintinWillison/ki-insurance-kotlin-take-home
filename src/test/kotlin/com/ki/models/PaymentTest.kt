@@ -15,8 +15,9 @@ class PaymentTest {
         val data = arrayOf(
             CUSTOMER_ID.toString(),
             DATE,
-            AMOUNT, CARD_ID.toString(),
-            CARD_STATUS
+            AMOUNT,
+            CARD_ID.toString(),
+            CARD_STATUS,
         )
         val payment = Payment(data)
         Assert.assertEquals(CUSTOMER_ID, payment.customerId)

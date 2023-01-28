@@ -11,7 +11,7 @@ class ShareEngineTest {
         val shareEngine = ShareEngine()
         val payments = arrayOf<Payment>(
             createPayment(456, 900),
-            createPayment(123, 4200)
+            createPayment(123, 4200),
         )
         val result = shareEngine.generateShareOrders(BigDecimal("1.2"), payments)
         Assert.assertEquals(2, result.size.toLong())
@@ -27,7 +27,7 @@ class ShareEngineTest {
         val customerId = 456
         val payments = arrayOf<Payment>(
             createPayment(customerId, 900),
-            createPayment(customerId, 4200)
+            createPayment(customerId, 4200),
         )
         val result = shareEngine.generateShareOrders(BigDecimal("1.2"), payments)
         Assert.assertEquals(1, result.size.toLong())
