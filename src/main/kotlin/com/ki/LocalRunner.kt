@@ -12,6 +12,14 @@ import java.math.BigDecimal
 
 object LocalRunner {
 
+    /**
+     * Exercise the APIs offered by this module by simulating invocation by the platform.
+     *
+     * @param csvPath Path to the payments CSV file.
+     * @param source The source of the payments, currently only `'card'` or `'bank'` are supported.
+     * @param sharePrice Share price to generate share orders for, e.g. `'1.30'`.
+     * @return CSV-encoded share orders, ready to be exported to a CSV file.
+     */
     fun simulatePlatform(csvPath: String, source: String, sharePrice: BigDecimal): String {
         val fieldNames = arrayOf(
             "customer_id",
