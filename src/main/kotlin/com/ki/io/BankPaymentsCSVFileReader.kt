@@ -9,6 +9,6 @@ internal class BankPaymentsCSVFileReader(
     fileReader: FileReader,
 ) : PaymentsCSVFileReader(fileReader, ADDITIONAL_HEADERS) {
     override fun createPayment(fieldValues: List<String>): Payment {
-        return Payment(fieldValues.toTypedArray())
+        return Payment.bank(fieldValues.toTypedArray())
     }
 }

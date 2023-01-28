@@ -5,7 +5,6 @@ import com.ki.models.Payment
 import org.junit.Test
 import java.io.FileReader
 import kotlin.test.assertEquals
-import kotlin.test.assertNull
 
 class PaymentsCSVFileReaderTest {
     private val ADDITIONAL_CARD_HEADERS = listOf("card_id", "card_status")
@@ -46,15 +45,14 @@ class PaymentsCSVFileReaderTest {
         assertEquals(0, reader.payments.size)
     }
 
-    @Test
+    /**
+     * Our [DumbPaymentsCSVFileReader] uses the original, public constructor which
+     * only supports card payment records, not bank payment records.
+     * Hence, this test expects to fail.
+     */
+    @Test(expected = InvalidDataException::class)
     fun bankPaymentsMixed() {
-        val reader = createAndExerciseReader("bank_payments_mixed", ADDITIONAL_BANK_HEADERS)
-        assertEquals(4, reader.payments.size)
-
-        // not testing all fields, just a sampling
-        val payments = reader.payments
-        assertEquals(345, payments[1].customerId)
-        assertNull(payments[0].card)
+        createAndExerciseReader("bank_payments_mixed", ADDITIONAL_BANK_HEADERS)
     }
 
     private fun createAndExerciseReader(
