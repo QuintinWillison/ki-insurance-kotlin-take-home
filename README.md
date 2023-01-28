@@ -72,5 +72,5 @@ mvn test
 
 #### Notes
 
-The code base has been written to compile under Java 8 (and Kotlin 1.6.0-RC2) and upwards. Dependencies are managed via Maven, see the `pom.xml` file.
+The code base has been written to compile under Java 8 (and Kotlin 1.8.0) and upwards. Dependencies are managed via Maven, see the `pom.xml` file.
 
