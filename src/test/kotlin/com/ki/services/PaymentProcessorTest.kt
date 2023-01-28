@@ -18,11 +18,16 @@ class PaymentProcessorTest {
         Assert.assertEquals(10, payments[2].card!!.cardId)
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun testGetPaymentsBank() {
         val fixturePath = Fixture.getPath("bank_payments_mixed.csv")
         val processor = PaymentProcessor()
-        processor.getPayments(fixturePath, "bank")
+        val payments = processor.getPayments(fixturePath, "bank")
+        Assert.assertEquals(4, payments.size.toLong())
+        Assert.assertEquals(789, payments[0].customerId)
+        Assert.assertEquals(345, payments[1].customerId)
+        Assert.assertEquals(1, payments[2].customerId)
+        Assert.assertEquals(2, payments[3].customerId)
     }
 
     @Test
@@ -30,6 +35,14 @@ class PaymentProcessorTest {
         val fixturePath = Fixture.getPath("card_payments_empty.csv")
         val processor = PaymentProcessor()
         val payments = processor.getPayments(fixturePath, "card")
+        Assert.assertEquals(0, payments.size.toLong())
+    }
+
+    @Test
+    fun testGetPaymentsEmptyBank() {
+        val fixturePath = Fixture.getPath("bank_payments_empty.csv")
+        val processor = PaymentProcessor()
+        val payments = processor.getPayments(fixturePath, "bank")
         Assert.assertEquals(0, payments.size.toLong())
     }
 

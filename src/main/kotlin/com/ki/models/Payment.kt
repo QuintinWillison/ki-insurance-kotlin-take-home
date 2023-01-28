@@ -18,7 +18,12 @@ class Payment {
 
     var card: Card? = null
 
-    constructor() {}
+    private val ignoreCard: Boolean
+
+    constructor() {
+        ignoreCard = false
+    }
+
     constructor(data: Array<String>) {
         customerId = data[0].toInt()
         val paymentFeeRate = Config.paymentFeeRate
@@ -26,6 +31,16 @@ class Payment {
         fee = paymentFeeRate.multiply(BigDecimal(totalAmount)).toInt()
         amount = totalAmount - fee
         date = LocalDate.parse(data[1])
+
+        // Card records have five fields.
+        // Bank records have four fields.
+        // TODO Solve this in a less brittle way.
+        val ignoreCard = (data.size < 5)
+        this.ignoreCard = ignoreCard
+        if (ignoreCard) {
+            return
+        }
+
         val card = Card()
         card.cardId = data[3].toInt()
         card.status = data[4]
@@ -33,5 +48,5 @@ class Payment {
     }
 
     val isSuccessful: Boolean
-        get() = card?.status == "processed"
+        get() = ignoreCard || (card?.status == "processed")
 }
