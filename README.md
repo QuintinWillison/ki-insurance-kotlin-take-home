@@ -1,5 +1,19 @@
 # Ki take home exercise
 
+## Quintin's Introduction :nerd_face:
+
+This repository contains the work I did for Ki Insurance as part of their interview process in January 2023.
+Visit the "Pull requests" tab in order to see the work done.
+
+They decided not to make me an offer, despite feeding back via the external recruiter that they were "super impressed" with the work I did here.
+Yep, sometimes recruitment processes just don't "add up". :shrug:
+
+I've made this work available as public, open-source in case it may be of help for others, either applying for a role at Ki Insurance, or interested to see what completion of a take home exercise might look like.
+
+At no point during my application process for Ki Insurance was I given any indication that the task or code initially provided, or the work that I did on it, was subject to any restrictions in respect of publication. So, here it is. I hope it can help someone. :heart:
+
+Anyway, everything below this point in this readme is what was provided to me initially (within the ZIP file they sent me by email)...
+
 ## Background
 
 The Ki website allows customers to open an account and purchase shares in one or more funds. Before a customer can buy shares, they top up their account with a desired amount, using a debit card.
