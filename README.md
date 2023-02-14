@@ -3,7 +3,7 @@
 ## Quintin's Introduction :nerd_face:
 
 This repository contains the work I did for Ki Insurance as part of their interview process in January 2023.
-Visit the "Pull requests" tab in order to see the work done.
+Visit [the "Pull requests" tab](https://github.com/QuintinWillison/ki-insurance-kotlin-take-home/pulls) in order to see the work done.
 
 They decided not to make me an offer, despite feeding back via the external recruiter that they were "super impressed" with the work I did here.
 Yep, sometimes recruitment processes just don't "add up". :shrug:
