@@ -6,7 +6,10 @@ import java.io.FileReader
 import java.io.IOException
 
 class PaymentProcessor {
-    fun getPayments(csvPath: String, source: String): Array<Payment> {
+    fun getPayments(
+        csvPath: String,
+        @Suppress("UNUSED_PARAMETER") source: String
+    ): Array<Payment> {
         val payments = ArrayList<Payment>()
         try {
             val file = FileReader(csvPath)
