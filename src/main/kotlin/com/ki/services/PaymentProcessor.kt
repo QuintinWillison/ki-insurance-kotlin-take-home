@@ -8,7 +8,7 @@ import java.io.IOException
 class PaymentProcessor {
     fun getPayments(
         csvPath: String,
-        @Suppress("UNUSED_PARAMETER") source: String
+        @Suppress("UNUSED_PARAMETER") source: String,
     ): Array<Payment> {
         val payments = ArrayList<Payment>()
         try {

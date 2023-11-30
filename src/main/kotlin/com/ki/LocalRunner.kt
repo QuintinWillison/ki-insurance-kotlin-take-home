@@ -15,7 +15,7 @@ object LocalRunner {
     fun simulatePlatform(csvPath: String, source: String, sharePrice: BigDecimal): String {
         val fieldNames = arrayOf(
             "customer_id",
-            "shares"
+            "shares",
         )
         val paymentProcessor = PaymentProcessor()
         val payments = paymentProcessor.getPayments(csvPath, source)
@@ -56,9 +56,9 @@ fun main(args: Array<String>) {
         System.exit(1)
     }
     val output = LocalRunner.simulatePlatform(
-        ns!!.getString("csv_path"), ns.getString("source"), BigDecimal(
-            ns.getString("share_price")
-        )
+        ns!!.getString("csv_path"),
+        ns.getString("source"),
+        BigDecimal(ns.getString("share_price")),
     )
     println(output)
 }
